@@ -3,8 +3,13 @@ var context = canvas.getContext("2d");
 canvas.width = 750;
 canvas.height = 800;
 
-var bullet = new Image();
-bullet.src = "img/bulletsm.png";
+// var bullet = new Image();
+// bullet.src = "img/bulletsm.png";
+// var bulletPos = { x: 200,
+// y: 100,
+// dirX: 0,
+// dirY: 0,
+// };
 
 var hero = new Image();
 hero.src = "img/wiggum.png";
@@ -109,67 +114,66 @@ window.addEventListener('keydown', function(event) {
     border(hero);
 });
 
-function Pool(maxSize) {
-	var size = maxSize; // Max bullets allowed in the pool
-	var pool = [];
-	this.init = function() {
-		for (var i = 0; i < size; i++) {
-			// Initalize the bullet object
-			var bullet = new Bullet();
-			bullet.init(0,0, imageRepository.bullet.width,
-			            imageRepository.bullet.height);
-			pool[i] = bullet;
-		}
-	};
-
-	this.get = function(x, y, speed) {
-		if(!pool[size - 1].alive) {
-			pool[size - 1].spawn(x, y, speed);
-			pool.unshift(pool.pop());
-		}
-	};
-
-	this.animate = function() {
-		for (var i = 0; i < size; i++) {
-			// Only draw until we find a bullet that is not alive
-			if (pool[i].alive) {
-				if (pool[i].draw()) {
-					pool[i].clear();
-					pool.push((pool.splice(i,1))[0]);
-				}
-			}
-			else
-				break;
-		}
-	};
-}
-
-function Bullet() {
-	this.alive = false;
-	this.spawn = function(x, y, speed) {
-		this.x = x;
-		this.y = y;
-		this.speed = speed;
-		this.alive = true;
-	};
-
-	this.draw = function() {
-		this.context.clearRect(this.x, this.y, this.width, this.height);
-		this.y -= this.speed;
-		if (this.y <= 0 - this.height) {
-			return true;
-		}
-		else {
-			this.context.drawImage(imageRepository.bullet, this.x, this.y);
-		}
-	};
-	this.clear = function() {
-		this.x = 0;
-		this.y = 0;
-		this.speed = 0;
-		this.alive = false;
-	};
-}
+// function Pool(maxSize) {
+// 	var size = maxSize; // Max bullets allowed in the pool
+// 	var pool = [];
+// 	this.init = function() {
+// 		for (var i = 0; i < size; i++) {
+// 			// Initalize the bullet object
+// 			var bullet = new Bullet();
+// 			bullet.init(0,0, bullet., bulletPos.x, bulletPos.y);
+// 			pool[i] = bullet;
+// 		}
+// 	};
+//
+// 	this.get = function(x, y, speed) {
+// 		if(!pool[size - 1].alive) {
+// 			pool[size - 1].spawn(x, y, speed);
+// 			pool.unshift(pool.pop());
+// 		}
+// 	};
+//
+// 	this.animate = function() {
+// 		for (var i = 0; i < size; i++) {
+// 			// Only draw until we find a bullet that is not alive
+// 			if (pool[i].alive) {
+// 				if (pool[i].draw()) {
+// 					pool[i].clear();
+// 					pool.push((pool.splice(i,1))[0]);
+// 				}
+// 			}
+// 			else
+// 				break;
+// 		}
+// 	};
+// }
+//
+// function Bullet() {
+// 	this.alive = false;
+// 	this.spawn = function(x, y, speed) {
+// 		this.x = x;
+// 		this.y = y;
+// 		this.speed = speed;
+// 		this.alive = true;
+// 	};
+//
+// 	this.draw = function() {
+// 		this.context.clearRect(this.x, this.y, this.width, this.height);
+// 		this.y -= this.speed;
+// 		if (this.y <= 0 - this.height) {
+// 			return true;
+// 		}
+// 		else {
+// 			this.context.drawImage(imageRepository.bullet, this.x, this.y);
+// 		}
+// 	};
+// 	this.clear = function() {
+// 		this.x = 0;
+// 		this.y = 0;
+// 		this.speed = 0;
+// 		this.alive = false;
+// 	};
+// }
 // Bullet.prototype = new Drawable();
 
 function collision(player) {
@@ -191,15 +195,15 @@ function main() {
     bgImage.src = "img/locations/background.png";
     context.drawImage(bgImage, 0, 0);
     context.drawImage(hero, heroPos.x, heroPos.y);
-    context.drawImage(bullet, heroPos.x, heroPos.y);
+    // context.drawImage(bullet, heroPos.x, heroPos.y);
     context.drawImage(zombie, zombiePos.x, zombiePos.y);
     moveRandom(zombiePos);
     move(heroPos);
     requestAnimationFrame(main);
-
-    Bullet.prototype.context;
-	Bullet.prototype.canvasWidth;
-	Bullet.prototype.canvasHeight; 
+    // 
+    // Bullet.prototype.context;
+	// Bullet.prototype.canvasWidth;
+	// Bullet.prototype.canvasHeight;
 
     if (collision(zombie)) {
         hero.src = "img/wiggum-zombiesm.png";
